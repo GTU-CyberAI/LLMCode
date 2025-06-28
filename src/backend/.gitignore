@@ -5,6 +5,8 @@ __pycache__/
 *.pyo
 *.pyd
 
+test-env/
+
 # Environment files
 .env
 .env.*
@@ -20,8 +22,4 @@ Thumbs.db
 # Log files
 *.log
 
-# Model & temporary files (if needed)
-*.pt
-*.pkl
-*.h5
-*.tmp
+
