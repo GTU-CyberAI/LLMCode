@@ -9,7 +9,7 @@ test-env/
 
 # Environment files
 .env
-.env.*
+
 
 # VSCode or JetBrains IDEs
 .vscode/
