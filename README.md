@@ -27,32 +27,38 @@ pip install -r requirements.txt
 
 cp .env.example .env            # add your OpenAI key + model paths
 python app.py                   # start backend
+```
 
 
-
-### Backend (React)
-
----
-
+## Frontend (React)
+```bash
 cd ../../frontend
 npm install
 npm start
+```
 
+---
 
-▶️ Usage Examples
-Generate Code
+### ▶️ Usage Examples
+## Generate Code
+```bash
 curl -X POST http://127.0.0.1:5000/api/generate-code \
   -H "Content-Type: application/json" \
   -d '{"prompt": "Write a C function to reverse a string."}'
+  ```
 
-  Analyze Existing Code
+##  Analyze Existing Code
 
+```bash
   curl -X POST http://127.0.0.1:5000/api/analyze-existing \
   -H "Content-Type: application/json" \
   -d '{"code": "char buf[10]; gets(buf);"}'
+  ```
+
+--- 
 
 
-📁 Repository Structure
+## 📁 Repository Structure
 LLMCode/
 ├── src/
 │   ├── backend/
