@@ -39,33 +39,36 @@ npm start
 
 ---
 
-### ▶️ Usage Examples
-## Generate Code
-```bash
-curl -X POST http://127.0.0.1:5000/api/generate-code \
-  -H "Content-Type: application/json" \
-  -d '{"prompt": "Write a C function to reverse a string."}'
-  ```
+## 🛠️ Troubleshooting
 
-##  Analyze Existing Code
+| Issue                        | Fix                                                         |
+|------------------------------|-------------------------------------------------------------|
+| `ModuleNotFoundError`        | Activate **venv** & reinstall deps                          |
+| Frontend cannot reach backend| Confirm Flask is running and **CORS** is enabled           |
+| OpenAI API errors            | Verify `OPENAI_API_KEY` is set in **.env**                 |
+| Model‑file load failure      | Ensure model artifacts exist in `src/backend/models/`       |
 
-```bash
-  curl -X POST http://127.0.0.1:5000/api/analyze-existing \
-  -H "Content-Type: application/json" \
-  -d '{"code": "char buf[10]; gets(buf);"}'
-  ```
+---
 
---- 
+# 📂 FILE_OVERVIEW.md  
+_Key files and their purpose in **LLMCode**_
 
+| Path | Purpose | Key Functions / Classes |
+|------|---------|-------------------------|
+| **src/backend/app.py** | Flask entry‑point that wires every endpoint (`/api/generate-code`, `/api/analyze-existing`, etc.) to the corresponding service. | `create_app()`, `generate_code()`, `analyze_existing()` |
+| **src/backend/trained_model_loader.py** | Loads the serialized ML ensemble (pickle / joblib) and exposes a single `predict_vulnerability()` helper used by the API. | `ModelLoader`, `predict_vulnerability()` |
+| **src/backend/models/** | Contains trained model artifacts (`*.pkl`, `*.joblib`). These are loaded at runtime—**do not** edit manually. | n/a – binary model files |
+| **src/backend/utils/** | Utility helpers shared by generator & analyzer (e.g., text cleaning, code stripping, logging). | `sanitize_code()`, `format_response()` |
+| **src/backend/generator/** | Logic for LLM prompts and OpenAI API communication. Separates prompt templates from core Flask code. | `AICodeGenerator.generate()` |
+| **src/backend/analyzer/** | Feature extraction + ensemble voting. Splits TF‑IDF vectorizer, tree‑based models, and thresholding. | `FeatureExtractor`, `EnsembleVoter` |
+| **src/frontend/** | React SPA. Presents a form for prompts, shows generated code + security report. Communicates with Flask via Axios. | `App.jsx`, `CodeInputForm.jsx`, `ResultCard.jsx` |
+| **requirements.txt** | Exact Python packages & versions required to run the backend. Install with `pip install -r requirements.txt`. | n/a |
+| **.env.example** | Template for environment variables (e.g., `OPENAI_API_KEY`, model path). Copy to `.env` and fill values. | n/a |
+| **README.md** | Main documentation: project intro, installation, usage, troubleshooting, acknowledgements. | n/a |
 
-## 📁 Repository Structure
-LLMCode/
-├── src/
-│   ├── backend/
-│   │   ├── app.py            # Flask API
-│   │   ├── trained_model_loader.py
-│   │   ├── models/           # *.pkl / *.joblib files
-│   │   └── utils/            # helpers
-│   └── frontend/             # React app
-├── requirements.txt          # backend deps
-└── README.md
+---
+
+## 🤝 Acknowledgements
+- **Course:** *CSE 473 - Network And Information Security*
+- **Instructor:** *Dr. Öğr. Üyesi Salih Sarp.*
+- **Team Members:** Arife Yurtseven · İlker Yılmaz
