@@ -102,6 +102,7 @@ python test_system_health.py
 
 ### Expected output
 
+```bash
 🧪 LLMCode Sistem Testi
 ========================================
 ✅ Backend çalışıyor
@@ -116,6 +117,7 @@ python test_system_health.py
 ✅ Kod analizi çalışıyor
    Analiz tamamlandı: True
 ✅ Tüm testler tamamlandı!
+```
 
 ---
 
@@ -135,11 +137,13 @@ _Key files and their purpose in **LLMCode**_
 
 | Path | Purpose | Key Functions / Classes |
 |------|---------|-------------------------|
-| **src/backend/app.py** | Flask entry‑point; exposes `/api/generate-code`, `/api/analyze-existing`, etc. | `create_app()`, `generate_code()`, `analyze_existing()` |
-| **src/backend/trained_model_loader.py** | Loads the serialized ML ensemble and provides `predict_vulnerability()` helper. | `ModelLoader`, `predict_vulnerability()` |
-| **src/backend/models/consisten_security_analyzer.pkl** | Trained model artifacts (`*.pkl`, `*.joblib`) loaded at runtime. | n/a – binary model files |
+| **src/backend/app.py** | Flask entry‑point; exposes `/api/analyze`, `/api/analyze-existing`, etc. | `AICodeGenerator`, `TrainedModelSecurityAnalyzer`, `ReportGenerator` |
+| **src/backend/trained_model_loader.py** | Loads the serialized ML ensemble and provides vulnerability analysis. | `TrainedModelLoader`, `ConsistentSecurityAnalyzer` |
+| **src/backend/models/consistent_security_analyzer.pkl** | Trained model artifacts loaded at runtime for security analysis. | n/a – binary model files |
 | **src/frontend/** | React SPA for prompt input and result visualization; communicates with Flask via Axios. | `App.jsx`, `CodeInputForm.jsx`, `ResultCard.jsx` |
-| **requirements.txt** | Exact Python packages & versions for backend; install with `pip install -r requirements.txt`. | n/a |
+| **tests/test_system_health.py** | System health verification tests; checks backend status and API functionality. | `test_backend_running()`, `test_api_endpoints()`, `test_code_analysis()` |
+| **tests/run_tests.py** | Test runner script; executes all tests and provides summary results. | `check_requirements()`, `run_system_test()` |
+| **requirements.txt** | Python packages & versions for backend; includes production and test dependencies. | n/a |
 | **.env.example** | Template for environment variables (`OPENAI_API_KEY`, model path). Copy to `.env` and fill values. | n/a |
 | **README.md** | Main documentation: intro, install guide, usage, troubleshooting, acknowledgements. | n/a |
 
