@@ -55,16 +55,13 @@ _Key files and their purpose in **LLMCode**_
 
 | Path | Purpose | Key Functions / Classes |
 |------|---------|-------------------------|
-| **src/backend/app.py** | Flask entry‑point that wires every endpoint (`/api/generate-code`, `/api/analyze-existing`, etc.) to the corresponding service. | `create_app()`, `generate_code()`, `analyze_existing()` |
-| **src/backend/trained_model_loader.py** | Loads the serialized ML ensemble (pickle / joblib) and exposes a single `predict_vulnerability()` helper used by the API. | `ModelLoader`, `predict_vulnerability()` |
-| **src/backend/models/** | Contains trained model artifacts (`*.pkl`, `*.joblib`). These are loaded at runtime—**do not** edit manually. | n/a – binary model files |
-| **src/backend/utils/** | Utility helpers shared by generator & analyzer (e.g., text cleaning, code stripping, logging). | `sanitize_code()`, `format_response()` |
-| **src/backend/generator/** | Logic for LLM prompts and OpenAI API communication. Separates prompt templates from core Flask code. | `AICodeGenerator.generate()` |
-| **src/backend/analyzer/** | Feature extraction + ensemble voting. Splits TF‑IDF vectorizer, tree‑based models, and thresholding. | `FeatureExtractor`, `EnsembleVoter` |
-| **src/frontend/** | React SPA. Presents a form for prompts, shows generated code + security report. Communicates with Flask via Axios. | `App.jsx`, `CodeInputForm.jsx`, `ResultCard.jsx` |
-| **requirements.txt** | Exact Python packages & versions required to run the backend. Install with `pip install -r requirements.txt`. | n/a |
-| **.env.example** | Template for environment variables (e.g., `OPENAI_API_KEY`, model path). Copy to `.env` and fill values. | n/a |
-| **README.md** | Main documentation: project intro, installation, usage, troubleshooting, acknowledgements. | n/a |
+| **src/backend/app.py** | Flask entry‑point; exposes `/api/generate-code`, `/api/analyze-existing`, etc. | `create_app()`, `generate_code()`, `analyze_existing()` |
+| **src/backend/trained_model_loader.py** | Loads the serialized ML ensemble and provides `predict_vulnerability()` helper. | `ModelLoader`, `predict_vulnerability()` |
+| **src/backend/models/consisten_security_analyzer.pkl** | Trained model artifacts (`*.pkl`, `*.joblib`) loaded at runtime. | n/a – binary model files |
+| **src/frontend/** | React SPA for prompt input and result visualization; communicates with Flask via Axios. | `App.jsx`, `CodeInputForm.jsx`, `ResultCard.jsx` |
+| **requirements.txt** | Exact Python packages & versions for backend; install with `pip install -r requirements.txt`. | n/a |
+| **.env.example** | Template for environment variables (`OPENAI_API_KEY`, model path). Copy to `.env` and fill values. | n/a |
+| **README.md** | Main documentation: intro, install guide, usage, troubleshooting, acknowledgements. | n/a |
 
 ---
 
